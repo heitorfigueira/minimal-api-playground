@@ -7,11 +7,10 @@ using MinimalApiPlayground.Framework.Models;
 using MinimalApiPlayground.Models.Customer;
 using MinimalApiPlayground.Models.DTO.Filters;
 using MinimalApiPlayground.Models.Interfaces;
-using MinimalApiPlayground.Repositories;
 using System;
 using System.Collections.Generic;
 
-namespace MinimalApiPlayground.EndpointDefinitions;
+namespace MinimalApiPlayground;
 public class CustomerDefinitions : IEndpointDefinition
 {
     private ICustomerRepository _customerRepo;

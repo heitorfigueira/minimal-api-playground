@@ -13,9 +13,9 @@ public static class SwaggerExtension
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen(c =>
         {
-            c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Minimal Api Playground", Version = "v1" });
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "Minimal Api Playground", Version = "v1" });
 
-            c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+            c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
                 Description = "JWT Authorization header using the bearer scheme",
                 Name = "Authorization",
@@ -23,9 +23,9 @@ public static class SwaggerExtension
                 Type = SecuritySchemeType.ApiKey
             });
 
-            c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+            c.AddSecurityRequirement(new OpenApiSecurityRequirement
             {
-                { new OpenApiSecurityScheme 
+                { new OpenApiSecurityScheme
                     { Reference = new OpenApiReference
                         {
                             Id = "Bearer",
@@ -44,5 +44,4 @@ public static class SwaggerExtension
             options.SwaggerEndpoint($"/swagger/v1/swagger.json", "MinimalApiPlayground");
         });
     }
-
 }

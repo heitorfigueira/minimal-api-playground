@@ -3,7 +3,7 @@ using MinimalApiPlayground.Models.Customer;
 using System;
 using System.Collections.Generic;
 
-namespace MinimalApiPlayground.Global
+namespace MinimalApiPlayground
 {
     public class Fakers
     {

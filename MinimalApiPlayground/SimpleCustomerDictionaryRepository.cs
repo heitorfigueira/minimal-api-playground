@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MinimalApiPlayground.Repositories;
+namespace MinimalApiPlayground;
 public class SimpleCustomerDictionaryRepository : ICustomerRepository
 {
     private readonly Dictionary<Guid, SimpleCustomer> _customers = new();
