@@ -1,7 +1,9 @@
 ﻿
 using Bogus;
+using MinimalApiPlayground.Global;
 using MinimalApiPlayground.Models.Customer;
 using MinimalApiPlayground.Models.DTO.Filters;
+using MinimalApiPlayground.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,27 +13,24 @@ public class SimpleCustomerDictionaryRepository : ICustomerRepository
 {
     private readonly Dictionary<Guid, SimpleCustomer> _customers = new();
 
-    private List<SimpleCustomer> GenerateRandomSimpleCustomer(int quantity)
+    #region Método Privado
+    private bool FilterCustomer(SimpleCustomerFilter filter, SimpleCustomer customer)
     {
-        var customerFaker = new Faker<SimpleCustomer>()
-                                .RuleFor(prop => prop.Id, fak => Guid.NewGuid())
-                                .RuleFor(prop => prop.Name, fak => fak.Person.FirstName)
-                                .RuleFor(prop => prop.LastName, fak => fak.Person.LastName)
-                                .RuleFor(prop => prop.Phone, fak => fak.Person.Phone)
-                                .RuleFor(prop => prop.Email, fak => fak.Person.Email);
-
-        return customerFaker.Generate(quantity).ToList();
+        return filter.Phone != customer.Phone ||
+               filter.Name != customer.Name ||
+               filter.LastName != customer.LastName ||
+               filter.Email != customer.Email ||
+               filter.Birthdate != customer.Birthdate.ToString();
     }
+    #endregion
 
+    #region Métodos Públicos
     public List<SimpleCustomer> Get(SimpleCustomerFilter filter)
     {
         var customers = _customers.Values.Where(customer =>
         {
             if (filter is not null &&
-                (filter.Phone != customer.Phone ||
-                filter.Name != customer.Name ||
-                filter.LastName != customer.LastName ||
-                filter.Email != customer.Email))
+                (FilterCustomer(filter, customer)))
                 return false;
 
             return true;
@@ -77,9 +76,9 @@ public class SimpleCustomerDictionaryRepository : ICustomerRepository
         return id;
     }
 
-    public List<SimpleCustomer> Randomize(int number)
+    public List<SimpleCustomer> Randomize(int quantity)
     {
-        var customers = GenerateRandomSimpleCustomer(number);
+        var customers = Fakers.SimpleCustomer(quantity);
 
         if (customers is not null)
             customers.ForEach(customer =>
@@ -91,4 +90,5 @@ public class SimpleCustomerDictionaryRepository : ICustomerRepository
 
         return customers;
     }
+    #endregion
 }

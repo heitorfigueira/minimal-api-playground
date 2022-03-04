@@ -3,7 +3,7 @@ using FluentValidation;
 using MinimalApiPlayground.Models;
 using MinimalApiPlayground.Models.Customer;
 
-namespace MinimalApiPlayground.Validations;
+namespace MinimalApiPlayground.Global.Validators;
 public class CustomerValidator : AbstractValidator<SimpleCustomer>
 {
     public CustomerValidator()

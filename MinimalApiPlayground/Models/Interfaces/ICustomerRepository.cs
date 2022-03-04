@@ -3,7 +3,7 @@ using MinimalApiPlayground.Models.DTO.Filters;
 using System;
 using System.Collections.Generic;
 
-namespace MinimalApiPlayground.Repositories
+namespace MinimalApiPlayground.Models.Interfaces
 {
     public interface ICustomerRepository
     {

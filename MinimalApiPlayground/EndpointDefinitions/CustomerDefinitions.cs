@@ -6,6 +6,7 @@ using MinimalApiPlayground.Framework;
 using MinimalApiPlayground.Framework.Models;
 using MinimalApiPlayground.Models.Customer;
 using MinimalApiPlayground.Models.DTO.Filters;
+using MinimalApiPlayground.Models.Interfaces;
 using MinimalApiPlayground.Repositories;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,8 @@ public class CustomerDefinitions : IEndpointDefinition
         app.MapPost("/customer", List);
         app.MapGet("/customer/randomize/{quantity}", Randomize);
     }
+
+    #region Métodos Internos
     internal Response<SimpleCustomer> Update([FromBody] SimpleCustomer customer)
     {
         var newCustomer = _customerRepo.Update(customer);
@@ -40,7 +43,7 @@ public class CustomerDefinitions : IEndpointDefinition
         if (_customerRepo.Delete(id))
             return Response.Ok();
         else
-            return Response.Ok(); //implementar response de erro
+            return Response.Ok("A requisição obteve sucesso porém não foi deletado nenhum registro.");
     }
 
     internal Response<List<SimpleCustomer>> List([FromBody] SimpleCustomerFilter filter)
@@ -79,6 +82,7 @@ public class CustomerDefinitions : IEndpointDefinition
 
         return Response.Ok(id);
     }
+    #endregion
 
     #region DependencyConfiguration
 
